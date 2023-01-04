@@ -49,6 +49,6 @@
     "eslint-config-react-app": "6",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
-    "eslint-plugin-react": "latest"
+    "eslint-plugin-react": "^7.31.11"
   }
 }

@@ -1,10 +1,13 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import { HttpPost } from "../../../utils/http";
+import InputText from "../../common/InputText";
 
 export default function LoginBox() {
   const [loginInput, setLoginInput] = useState({
-    ID: "",
-    Password: "",
+    email: "",
+    password: "",
   });
+  const loginBtnRef = useRef<HTMLButtonElement>(null);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { target } = e;
@@ -14,24 +17,56 @@ export default function LoginBox() {
     });
   };
 
-  const doLogin = () => {
-    console.log(loginInput);
+  const doLogin = async () => {
+    const response = await HttpPost(
+      "http://localhost:8080/users/login",
+      loginInput
+    );
+
+    if (response.statusCode !== 200) {
+      console.log(response);
+      return;
+    }
+    localStorage.setItem("auth", response.token);
   };
 
-  // const validateForm = () => true;
+  useEffect(() => {
+    if (!loginBtnRef.current) return;
+    loginBtnRef.current.disabled = !validateForm();
+  }, [loginInput]);
+
+  const validateForm = () => {
+    if (!loginInput.email.match(/.*@.*\..*/)) {
+      return false;
+    }
+    if (loginInput.password.length < 8) {
+      return false;
+    }
+    return true;
+  };
 
   return (
-    <div>
-      <input type="text" name="ID" placeholder="ID" onChange={onChange} />
-      <input
-        type="password"
-        name="Password"
-        placeholder="Password"
-        onChange={onChange}
-      />
-      <button type="button" onClick={doLogin}>
-        submit
-      </button>
+    <div className="loginContainer">
+      <div className="loginForm">
+        <InputText change={onChange} name="email" placeholder="Email" />
+        <hr />
+        <InputText
+          change={onChange}
+          name="password"
+          placeholder="Password"
+          isPassword
+        />
+      </div>
+      <div className="loginBtnContainer">
+        <button
+          type="button"
+          className="signin"
+          onClick={doLogin}
+          ref={loginBtnRef}
+        >
+          signin
+        </button>
+      </div>
     </div>
   );
 }
