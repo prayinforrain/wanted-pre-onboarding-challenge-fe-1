@@ -1,4 +1,4 @@
-.loginContainer {
+.authContainer {
   display: flex;
   flex-direction: row;
   // background-color: #ccc;
@@ -9,7 +9,7 @@
   height: 100px;
   align-self: center;
   justify-content: space-around;
-  & > .loginForm {
+  & > .authForm {
     flex: 7;
 
     display: flex;
@@ -20,18 +20,15 @@
       flex: 1;
     }
   }
-  & > .loginBtnContainer {
+  & > .authBtnContainer {
     flex: 3;
     padding: 10px;
     display: flex;
     flex-direction: column;
 
-    & .signin {
+    & > button {
       flex: 1;
       margin-bottom: 5px;
-    }
-
-    & .signup {
     }
   }
 }

@@ -46,8 +46,8 @@ export default function LoginBox() {
   };
 
   return (
-    <div className="loginContainer">
-      <div className="loginForm">
+    <div className="authContainer">
+      <div className="authForm">
         <InputText change={onChange} name="email" placeholder="Email" />
         <hr />
         <InputText
@@ -57,7 +57,7 @@ export default function LoginBox() {
           isPassword
         />
       </div>
-      <div className="loginBtnContainer">
+      <div className="authBtnContainer">
         <button
           type="button"
           className="signin"
