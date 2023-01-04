@@ -1,7 +1,8 @@
 {
   "env": {
     "browser": true,
-    "es2021": true
+    "es2021": true,
+    "jest": true
   },
   "extends": [
     // "eslint:recommended",
@@ -10,7 +11,11 @@
     "airbnb",
     "prettier"
   ],
-  "overrides": [],
+  "overrides": [
+    {
+      "files": ["**/*.spec.js", "**/*.spec.jsx"]
+    }
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
