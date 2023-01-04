@@ -1,10 +1,12 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useToast from "../../../hooks/useToast";
 import { HttpPost } from "../../../utils/http";
 import InputText from "../../common/InputText";
 
 export default function LoginBox() {
   const navigate = useNavigate();
+  const { addToast } = useToast();
   const [loginInput, setLoginInput] = useState({
     email: "",
     password: "",
@@ -26,7 +28,7 @@ export default function LoginBox() {
     );
 
     if (response.statusCode !== 200) {
-      console.log(response);
+      addToast(response.details);
       return;
     }
     localStorage.setItem("auth", response.token);
