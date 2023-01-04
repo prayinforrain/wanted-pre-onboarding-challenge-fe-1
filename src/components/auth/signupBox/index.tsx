@@ -1,32 +1,34 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useToast from "../../../hooks/useToast";
 import { HttpPost } from "../../../utils/http";
 import InputText from "../../common/InputText";
 
-export default function LoginBox() {
+export default function SignupBox() {
   const navigate = useNavigate();
-  const [loginInput, setLoginInput] = useState({
+  const [signupInput, setSignupInput] = useState({
     email: "",
     password: "",
   });
-  const loginBtnRef = useRef<HTMLButtonElement>(null);
+  const SignupBtnRef = useRef<HTMLButtonElement>(null);
+  const { addToast } = useToast();
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { target } = e;
-    setLoginInput({
-      ...loginInput,
+    setSignupInput({
+      ...signupInput,
       [target.name]: target.value,
     });
   };
 
-  const doLogin = async () => {
+  const doSignup = async () => {
     const response = await HttpPost(
-      "http://localhost:8080/users/login",
-      loginInput
+      "http://localhost:8080/users/create",
+      signupInput
     );
 
     if (response.statusCode !== 200) {
-      console.log(response);
+      addToast(response.details);
       return;
     }
     localStorage.setItem("auth", response.token);
@@ -34,15 +36,15 @@ export default function LoginBox() {
   };
 
   useEffect(() => {
-    if (!loginBtnRef.current) return;
-    loginBtnRef.current.disabled = !validateForm();
-  }, [loginInput]);
+    if (!SignupBtnRef.current) return;
+    SignupBtnRef.current.disabled = !validateForm();
+  }, [signupInput]);
 
   const validateForm = () => {
-    if (!loginInput.email.match(/.*@.*\..*/)) {
+    if (!signupInput.email.match(/.*@.*\..*/)) {
       return false;
     }
-    if (loginInput.password.length < 8) {
+    if (signupInput.password.length < 8) {
       return false;
     }
     return true;
@@ -63,11 +65,11 @@ export default function LoginBox() {
       <div className="authBtnContainer">
         <button
           type="button"
-          className="signin"
-          onClick={doLogin}
-          ref={loginBtnRef}
+          className="signup"
+          onClick={doSignup}
+          ref={SignupBtnRef}
         >
-          signin
+          signup
         </button>
       </div>
     </div>

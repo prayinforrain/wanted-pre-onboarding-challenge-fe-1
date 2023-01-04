@@ -7,7 +7,7 @@ export default function AuthPage() {
   return (
     <div className="page">
       <LoginBox />
-      <Link to="/" className="signup">
+      <Link to="/auth/signup" className="signup">
         signup
       </Link>
     </div>

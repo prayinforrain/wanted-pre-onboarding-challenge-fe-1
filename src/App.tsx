@@ -4,7 +4,9 @@ import "./styles/common.scss";
 import "./styles/reset.scss";
 import { RecoilRoot } from "recoil";
 import AuthPage from "./pages/Auth";
+import SignupPage from "./pages/Signup";
 import ToastController from "./components/common/ToastController";
+import MainPage from "./pages/Main";
 
 export function App() {
   return (
@@ -13,7 +15,9 @@ export function App() {
         <ToastController />
         <Router>
           <Routes>
-            <Route path="/" element={<AuthPage />} />
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/auth/signup" element={<SignupPage />} />
+            <Route path="/" element={<MainPage />} />
           </Routes>
         </Router>
       </RecoilRoot>
