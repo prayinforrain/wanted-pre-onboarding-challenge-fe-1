@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useToast from "../../../hooks/useToast";
-import { HttpPost } from "../../../utils/http";
+import { HttpUtil } from "../../../utils/http";
 import InputText from "../../common/InputText";
 
 export default function LoginBox() {
@@ -22,8 +22,9 @@ export default function LoginBox() {
   };
 
   const doLogin = async () => {
-    const response = await HttpPost(
+    const response = await HttpUtil(
       "http://localhost:8080/users/login",
+      "POST",
       loginInput
     );
 

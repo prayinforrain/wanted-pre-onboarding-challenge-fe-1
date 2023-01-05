@@ -1,13 +1,15 @@
-async function HttpPost(
+async function HttpUtil(
   url: string,
-  data: any
+  method: "GET" | "POST" | "UPDATE" | "DELETE",
+  data?: any
 ): Promise<{ statusCode: number; [key: string]: any }> {
   const body = typeof data !== "string" ? JSON.stringify(data) : data;
   const response = await fetch(url, {
-    method: "POST",
+    method,
     body,
     headers: {
       "Content-Type": "application/json",
+      Authorization: localStorage.getItem("auth") ?? "",
     },
   });
 
@@ -17,4 +19,4 @@ async function HttpPost(
   return result;
 }
 
-export { HttpPost };
+export { HttpUtil };
