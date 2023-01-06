@@ -30,7 +30,7 @@ export default function TodoDetail() {
       "GET"
     );
     if (response.statusCode !== 200) {
-      navigate("/");
+      navigate("/", { replace: true });
       return;
     }
     setTodoData(response.data);
@@ -78,7 +78,7 @@ export default function TodoDetail() {
       return;
     }
     addToast("삭제되었습니다.");
-    navigate("/");
+    navigate("/", { replace: true });
     queryClient.invalidateQueries();
     setIsEditing(false);
   };
