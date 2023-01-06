@@ -1,6 +1,6 @@
 async function HttpUtil(
   url: string,
-  method: "GET" | "POST" | "UPDATE" | "DELETE",
+  method: "GET" | "POST" | "PUT" | "DELETE",
   data?: any
 ): Promise<{ statusCode: number; [key: string]: any }> {
   const body = typeof data !== "string" ? JSON.stringify(data) : data;
