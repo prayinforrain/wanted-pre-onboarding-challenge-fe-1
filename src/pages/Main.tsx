@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import TodoDetail from "../components/todo/todoDetail";
 import TodoList from "../components/todo/todoList";
+import "../styles/todo.scss";
 
 export default function MainPage() {
   const navigate = useNavigate();
@@ -13,7 +15,10 @@ export default function MainPage() {
 
   return (
     <div className="page">
-      <TodoList />
+      <div className="todoPage">
+        <TodoList />
+        <TodoDetail />
+      </div>
     </div>
   );
 }

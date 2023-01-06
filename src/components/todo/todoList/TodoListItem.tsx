@@ -1,9 +1,11 @@
 import React from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { selectedTodo } from "../../../atom";
 import { Todo } from "../../../types/Todo";
 
 export default function TodoListItem({ item }: { item: Todo }) {
-  const [params] = useSearchParams();
+  const currentTodo = useRecoilValue(selectedTodo);
   const navigate = useNavigate();
 
   const onSelectItem = (id: string) => {
@@ -18,7 +20,8 @@ export default function TodoListItem({ item }: { item: Todo }) {
         name="test"
         id={`todoItem${item.id}`}
         onClick={() => onSelectItem(item.id)}
-        defaultChecked={params.get("id") === item.id}
+        checked={currentTodo === item.id}
+        readOnly
       />
     </label>
   );
