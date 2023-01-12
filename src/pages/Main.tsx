@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../components/common/LoadingSpinner";
+import Sidebar from "../components/todo/sidebar";
 import TodoDetail from "../components/todo/todoDetail";
-import TodoList from "../components/todo/todoList";
 import "../styles/todo.scss";
 
 export default function MainPage() {
@@ -16,8 +17,10 @@ export default function MainPage() {
   return (
     <div className="page">
       <div className="todoPage">
-        <TodoList />
-        <TodoDetail />
+        <Sidebar />
+        <Suspense fallback={<LoadingSpinner />}>
+          <TodoDetail />
+        </Suspense>
       </div>
     </div>
   );
