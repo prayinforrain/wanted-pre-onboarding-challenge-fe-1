@@ -13,19 +13,20 @@ function TodoList() {
 
   const fetchTodos = async (): Promise<Todo[]> => {
     const response = await HttpUtil("http://localhost:8080/todos", "GET");
-    return response.Todos;
+    return response.data;
   };
   const { data: Todos } = useQuery("todo", fetchTodos, { suspense: true });
 
   useEffect(() => {
-    if (!Todos) return;
+    console.log(Todos);
     setCurrentTodo(params.get("id") ?? null);
   }, [params, Todos]);
 
   return (
     <>
-      {Todos &&
-        Todos.map((item: Todo) => <TodoListItem key={item.id} item={item} />)}
+      {Todos?.map((item: Todo) => (
+        <TodoListItem key={item.id} item={item} />
+      ))}
       {Todos?.length === 0 && <div>일정이 없습니다!</div>}
     </>
   );
