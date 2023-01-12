@@ -18,7 +18,6 @@ function TodoList() {
   const { data: Todos } = useQuery("todo", fetchTodos, { suspense: true });
 
   useEffect(() => {
-    console.log(Todos);
     setCurrentTodo(params.get("id") ?? null);
   }, [params, Todos]);
 
